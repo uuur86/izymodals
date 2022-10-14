@@ -147,8 +147,7 @@ function TabModal(_ref4) {
     tabIndex = _useState2[0],
     setTabIndex = _useState2[1];
   return React__default.createElement(ModalBase, {
-    status: status,
-    footer: footer
+    status: status
   }, React__default.createElement(TabModalWrapper, Object.assign({}, props), function (_ref5) {
     var tabList = _ref5.tabList,
       tabPanels = _ref5.tabPanels;
