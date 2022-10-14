@@ -1,7 +1,7 @@
 {
   "name": "izymodals",
   "packageManager": "yarn@3.2.4",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Wizard library that creats React Modals",
   "author": "uuur86",
   "license": "MIT",
@@ -24,12 +24,21 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
-  "peerDependencies": {
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-tabs": "^3.2.0",
     "primeflex": "3.1.0",
     "primeicons": "^5.0.0",
-    "primereact": "^7.1.0",
+    "primereact": "^7.1.0"
+  },
+  "peerDependencies": {
     "react": "^17.0.1",
-    "react-tabs": "^3.2.0"
+    "react-dom": "^17.0.1",
+    "react-tabs": "^3.2.0",
+    "primeflex": "3.1.0",
+    "primeicons": "^5.0.0",
+    "primereact": "^7.1.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.0",
