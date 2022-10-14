@@ -132,7 +132,7 @@ export function TabModal({
   const [tabIndex, setTabIndex] = useState(tabIndexDefault)
 
   return (
-    <ModalBase status={status} footer={footer}>
+    <ModalBase status={status}>
       <TabModalWrapper {...props}>
         {({ tabList, tabPanels }: any) => {
           return (

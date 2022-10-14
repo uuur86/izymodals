@@ -1,5 +1,6 @@
 {
   "name": "izymodals",
+  "packageManager": "yarn@3.2.4",
   "version": "1.0.0",
   "description": "A Wizard library that creats React Modals",
   "author": "uuur86",
