@@ -3,14 +3,18 @@ import { ModalPropsInterface } from 'izymodals';
 /**
  * Modals
  */
-export declare function ModalBase({ status, header, footer, children }: ModalPropsInterface): JSX.Element;
-export declare function PromptModal({ status, promptConfig, children }: ModalPropsInterface): JSX.Element;
+export declare function ModalBase({ buttonLabel, buttonConfigs, status, header, footer, onClose, children, ...props }: ModalPropsInterface): JSX.Element;
+export declare function Modal({ children, ...props }: ModalPropsInterface): JSX.Element;
+export declare function ActionButton({ ...props }: {
+    [x: string]: any;
+}): JSX.Element;
+export declare function PromptModal({ buttonLabel, labelYes, labelNo, onYes, onNo, children }: ModalPropsInterface): JSX.Element;
 export declare function TabModalWrapper({ steps, children }: ModalPropsInterface): any;
-export declare function TabModal({ status, children, footer, tabIndex: tabIndexDefault, ...props }: any): any;
+export declare function TabModal({ status, tabIndex: tabInd, footer, children, ...props }: ModalPropsInterface): JSX.Element;
 declare const _default: {
-    ModalBase: typeof ModalBase;
-    PromptModal: typeof PromptModal;
-    TabModalWrapper: typeof TabModalWrapper;
+    Modal: typeof Modal;
     TabModal: typeof TabModal;
+    PromptModal: typeof PromptModal;
+    ActionButton: typeof ActionButton;
 };
 export default _default;
