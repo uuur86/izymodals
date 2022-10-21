@@ -1,11 +1,14 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var React = require('react');
-var React__default = _interopDefault(React);
+var React = _interopDefault(require('react'));
 var dialog = require('primereact/dialog');
 var reactTabs = require('react-tabs');
 var button = require('primereact/button');
 var utils = require('primereact/utils');
+require('react-tabs/style/react-tabs.css');
+require('primeicons/primeicons.css');
+require('primeflex/primeflex.min.css');
+require('primereact/resources/primereact.min.css');
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -39,14 +42,12 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var _excluded = ["buttonLabel", "buttonConfigs", "status", "header", "footer", "onClose", "children"],
   _excluded2 = ["children"],
-  _excluded3 = ["status", "tabIndex", "footer", "children"];
+  _excluded3 = ["status", "footer", "children"];
 function ModalBase(_ref) {
   var _ref$buttonLabel = _ref.buttonLabel,
     buttonLabel = _ref$buttonLabel === void 0 ? 'Open Modal' : _ref$buttonLabel,
     _ref$buttonConfigs = _ref.buttonConfigs,
     buttonConfigs = _ref$buttonConfigs === void 0 ? {} : _ref$buttonConfigs,
-    _ref$status = _ref.status,
-    status = _ref$status === void 0 ? false : _ref$status,
     _ref$header = _ref.header,
     header = _ref$header === void 0 ? false : _ref$header,
     _ref$footer = _ref.footer,
@@ -56,11 +57,11 @@ function ModalBase(_ref) {
     children = _ref.children,
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
   var id = utils.UniqueComponentId();
-  var _useState = React.useState(false),
-    visible = _useState[0],
-    setVisible = _useState[1];
+  var _React$useState = React.useState(false),
+    visible = _React$useState[0],
+    setVisible = _React$useState[1];
   var triggerButton = function triggerButton(status) {
-    return React__default.createElement(ActionButton, {
+    return React.createElement(ActionButton, {
       onClick: function onClick() {
         return !status && setVisible(true);
       },
@@ -72,14 +73,10 @@ function ModalBase(_ref) {
     onClose();
     setVisible(false);
   };
-  React.useEffect(function () {
-    console.log('status', status);
-    setVisible(status);
-  }, [status]);
   var dialog$1 = function dialog$1(visible) {
     var footerProps = (buttonConfigs === null || buttonConfigs === void 0 ? void 0 : buttonConfigs.footer) && ButtonsTemplate(buttonConfigs.footer) || footer;
     var HeaderProps = (buttonConfigs === null || buttonConfigs === void 0 ? void 0 : buttonConfigs.header) && ButtonsTemplate(buttonConfigs.header) || header;
-    return React__default.createElement(dialog.Dialog, Object.assign({
+    return React.createElement(dialog.Dialog, Object.assign({
       contentStyle: {
         width: 'auto'
       },
@@ -102,7 +99,7 @@ function ModalBase(_ref) {
           value = _ref2[1];
         return key && value;
       }));
-      return React__default.createElement(ActionButton, Object.assign({}, button, {
+      return React.createElement(ActionButton, Object.assign({}, button, {
         onClick: function onClick() {
           setVisible(false);
           button.onClick();
@@ -111,21 +108,21 @@ function ModalBase(_ref) {
         key: index
       }));
     });
-    return React__default.createElement("div", {
+    return React.createElement("div", {
       className: 'p-dialog'
     }, buttons);
   }
-  return React__default.createElement("div", null, triggerButton(visible), dialog$1(visible));
+  return React.createElement("div", null, triggerButton(visible), dialog$1(visible));
 }
 function Modal(_ref3) {
   var children = _ref3.children,
     props = _objectWithoutPropertiesLoose(_ref3, _excluded2);
-  return React__default.createElement("div", null, React__default.createElement(ModalBase, Object.assign({}, props), children));
+  return React.createElement("div", null, React.createElement(ModalBase, Object.assign({}, props), children));
 }
 function ActionButton(_ref4) {
   var props = _extends({}, (_objectDestructuringEmpty(_ref4), _ref4));
   var promptId = utils.UniqueComponentId("propmt-button-" + ((props === null || props === void 0 ? void 0 : props.name) || ''));
-  return React__default.createElement(button.Button, Object.assign({}, props, {
+  return React.createElement(button.Button, Object.assign({}, props, {
     id: promptId,
     name: props === null || props === void 0 ? void 0 : props.name
   }));
@@ -143,7 +140,7 @@ function PromptModal(_ref5) {
   var handler = function handler(answer) {
     return answer === 'yes' ? onYes && onYes() : onNo && onNo();
   };
-  var modalBase = React__default.createElement(ModalBase, {
+  var modalBase = React.createElement(ModalBase, {
     status: false,
     buttonLabel: buttonLabel,
     buttonConfigs: {
@@ -164,15 +161,15 @@ function PromptModal(_ref5) {
       }]
     }
   }, children);
-  return React__default.createElement("div", null, modalBase);
+  return React.createElement("div", null, modalBase);
 }
-function TabModalWrapper(_ref6) {
-  var _ref6$steps = _ref6.steps,
-    steps = _ref6$steps === void 0 ? [] : _ref6$steps,
-    children = _ref6.children;
-  var tabList = React__default.createElement("div", null, React__default.createElement(reactTabs.TabList, null, steps.map(function (step, index) {
+function TabModalWrapper(props) {
+  var _props$steps = props.steps,
+    steps = _props$steps === void 0 ? [] : _props$steps,
+    children = props.children;
+  var tabList = React.createElement("div", null, React.createElement(reactTabs.TabList, null, steps.map(function (step, index) {
     var fieldDisabled = !!step.disabled;
-    return React__default.createElement(reactTabs.Tab, {
+    return React.createElement(reactTabs.Tab, {
       key: index,
       disabled: fieldDisabled,
       style: fieldDisabled ? {
@@ -182,7 +179,7 @@ function TabModalWrapper(_ref6) {
     }, step.label);
   })));
   var tabPanels = steps.map(function (step, index) {
-    return React__default.createElement(reactTabs.TabPanel, {
+    return React.createElement(reactTabs.TabPanel, {
       key: index
     }, step.content(step.params || null));
   });
@@ -192,24 +189,23 @@ function TabModalWrapper(_ref6) {
     stepData: steps
   });
 }
-function TabModal(_ref7) {
-  var _ref7$status = _ref7.status,
-    status = _ref7$status === void 0 ? false : _ref7$status,
-    _ref7$tabIndex = _ref7.tabIndex,
-    tabInd = _ref7$tabIndex === void 0 ? 0 : _ref7$tabIndex,
-    children = _ref7.children,
-    props = _objectWithoutPropertiesLoose(_ref7, _excluded3);
-  var _useState2 = React.useState(tabInd),
-    tabIndex = _useState2[0],
-    setTabIndex = _useState2[1];
-  return React__default.createElement("div", null, React__default.createElement(ModalBase, {
+function TabModal(_ref6) {
+  var _ref6$status = _ref6.status,
+    status = _ref6$status === void 0 ? false : _ref6$status,
+    children = _ref6.children,
+    props = _objectWithoutPropertiesLoose(_ref6, _excluded3);
+  var defaultIndex = (props === null || props === void 0 ? void 0 : props.tabIndex) || 0;
+  var _React$useState2 = React.useState(defaultIndex),
+    tabIndex = _React$useState2[0],
+    setTabIndex = _React$useState2[1];
+  return React.createElement("div", null, React.createElement(ModalBase, {
     status: status
-  }, React__default.createElement(TabModalWrapper, Object.assign({}, props), function (_ref8) {
-    var tabList = _ref8.tabList,
-      tabPanels = _ref8.tabPanels;
-    return React__default.createElement("div", {
+  }, React.createElement(TabModalWrapper, Object.assign({}, props), function (_ref7) {
+    var tabList = _ref7.tabList,
+      tabPanels = _ref7.tabPanels;
+    return React.createElement("div", {
       className: 'mt-5 flex'
-    }, React__default.createElement(reactTabs.Tabs, {
+    }, React.createElement(reactTabs.Tabs, {
       selectedIndex: tabIndex,
       onSelect: function onSelect(index) {
         return setTabIndex(index);
@@ -222,6 +218,7 @@ function TabModal(_ref7) {
 }
 var index = {
   Modal: Modal,
+  ModalBase: ModalBase,
   TabModal: TabModal,
   PromptModal: PromptModal,
   ActionButton: ActionButton

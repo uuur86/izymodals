@@ -6,6 +6,7 @@ declare module 'izymodals' {
   export namespace PrimeReact {
     type DialogTemplateType = import('primereact').DialogTemplateType
   }
+
   export interface TabInterface {
     content: JSX.Element
     disabled?: boolean
@@ -14,19 +15,12 @@ declare module 'izymodals' {
     tabIndex?: number
   }
 
-  export interface TabModalPropsInterface {
+  export interface TabModalPropsInterface extends ModalPropsInterface {
     steps?: TabInterface[]
+    tabIndex?: number
   }
 
-  export interface PropmtOptionsInterface {
-    labelYes?: string
-    labelNo?: string
-    onYes?: () => void
-    onNo?: () => void
-    onCancel?: () => void
-  }
-
-  export interface PromptModalPropsInterface {
+  export interface PromptModalPropsInterface extends ModalPropsInterface {
     labelYes?: string
     labelNo?: string
     onYes?: () => void
@@ -47,13 +41,10 @@ declare module 'izymodals' {
     header?: ButtonPropsInterface[]
   }
 
-  export interface ModalPropsInterface
-    extends TabModalPropsInterface,
-      PromptModalPropsInterface {
+  export interface ModalPropsInterface {
     status?: boolean
     buttonLabel?: string
     onClose?: () => void
-    tabIndex?: number
     children?: React.PropsWithChildren<any>[] | React.PropsWithChildren<any>
     header?: PrimeReact.DialogTemplateType
     footer?: PrimeReact.DialogTemplateType
@@ -63,13 +54,14 @@ declare module 'izymodals' {
   export interface TabModalWrapPropsInterface {
     tabList: TabInterface[]
     tabPanels: JSX.Element[]
-    children: any
+    children?: React.FC
   }
 
-  export const Modal: React.FC<ModalPropsInterface>
-  export const TabModal: React.FC<ModalPropsInterface>
-  export const PromptModal: React.FC<ModalPropsInterface>
+  export const ModalBase: React.ComponentType<ModalPropsInterface>
+  export const Modal: React.ComponentType<ModalPropsInterface>
+  export const TabModal: React.ComponentType<TabModalPropsInterface>
+  export const PromptModal: React.ComponentType<PromptModalPropsInterface>
 
-  export const ButtonTemplate: React.FC<ButtonPropsInterface>
-  export const ActionButton: React.FC<ButtonPropsInterface>
+  export const ButtonTemplate: React.ComponentType<ButtonPropsInterface>
+  export const ActionButton: React.ComponentType<ButtonPropsInterface>
 }

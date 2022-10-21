@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { Button } from 'primereact/button'
@@ -7,10 +7,15 @@ import { UniqueComponentId } from 'primereact/utils'
 import {
   ButtonPropsInterface,
   ModalPropsInterface,
+  PromptModalPropsInterface,
+  TabModalPropsInterface,
   TabModalWrapPropsInterface
 } from 'izymodals'
 import PrimeReact from 'primereact'
-
+import 'react-tabs/style/react-tabs.css'
+import 'primeicons/primeicons.css'
+import 'primeflex/primeflex.min.css'
+import 'primereact/resources/primereact.min.css'
 /**
  * Modals
  */
@@ -25,7 +30,7 @@ export function ModalBase({
   ...props
 }: ModalPropsInterface) {
   const id = UniqueComponentId()
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = React.useState(false)
 
   const triggerButton = (status: boolean) => {
     return (
@@ -41,12 +46,6 @@ export function ModalBase({
     onClose()
     setVisible(false)
   }
-
-  useEffect(() => {
-    console.log('status', status)
-    setVisible(status)
-  }, [status])
-  //
 
   const dialog = (visible: boolean) => {
     const footerProps =
@@ -126,7 +125,7 @@ export function PromptModal({
   onYes,
   onNo,
   children
-}: ModalPropsInterface) {
+}: PromptModalPropsInterface) {
   const handler = (answer: 'yes' | 'no') =>
     answer === 'yes' ? onYes && onYes() : onNo && onNo()
 
@@ -158,10 +157,8 @@ export function PromptModal({
   return <div>{modalBase}</div>
 }
 
-export function TabModalWrapper({
-  steps = [],
-  children
-}: ModalPropsInterface): any {
+export function TabModalWrapper(props: TabModalPropsInterface) {
+  const { steps = [], children } = props
   const tabList = (
     <div>
       <TabList>
@@ -197,12 +194,12 @@ export function TabModalWrapper({
 
 export function TabModal({
   status = false,
-  tabIndex: tabInd = 0,
   footer,
   children,
   ...props
-}: ModalPropsInterface) {
-  const [tabIndex, setTabIndex] = useState(tabInd)
+}: TabModalPropsInterface) {
+  const defaultIndex = props?.tabIndex || 0
+  const [tabIndex, setTabIndex] = React.useState(defaultIndex)
 
   return (
     <div>
@@ -210,7 +207,7 @@ export function TabModal({
         <TabModalWrapper {...props}>
           {({ tabList, tabPanels }: TabModalWrapPropsInterface) => {
             return (
-              <div className='mt-5 flex'>
+              <div className='mt-5'>
                 <Tabs
                   selectedIndex={tabIndex}
                   onSelect={(index: number) => setTabIndex(index)}
@@ -226,9 +223,9 @@ export function TabModal({
   )
 }
 
-// Path: src\components\modals\index.tsx
 export default {
   Modal,
+  ModalBase,
   TabModal,
   PromptModal,
 

@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Dialog } from 'primereact/dialog';
 import { TabList, Tab, TabPanel, Tabs } from 'react-tabs';
 import { Button } from 'primereact/button';
 import { UniqueComponentId } from 'primereact/utils';
+import 'react-tabs/style/react-tabs.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.min.css';
+import 'primereact/resources/primereact.min.css';
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -36,14 +40,12 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var _excluded = ["buttonLabel", "buttonConfigs", "status", "header", "footer", "onClose", "children"],
   _excluded2 = ["children"],
-  _excluded3 = ["status", "tabIndex", "footer", "children"];
+  _excluded3 = ["status", "footer", "children"];
 function ModalBase(_ref) {
   var _ref$buttonLabel = _ref.buttonLabel,
     buttonLabel = _ref$buttonLabel === void 0 ? 'Open Modal' : _ref$buttonLabel,
     _ref$buttonConfigs = _ref.buttonConfigs,
     buttonConfigs = _ref$buttonConfigs === void 0 ? {} : _ref$buttonConfigs,
-    _ref$status = _ref.status,
-    status = _ref$status === void 0 ? false : _ref$status,
     _ref$header = _ref.header,
     header = _ref$header === void 0 ? false : _ref$header,
     _ref$footer = _ref.footer,
@@ -53,9 +55,9 @@ function ModalBase(_ref) {
     children = _ref.children,
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
   var id = UniqueComponentId();
-  var _useState = useState(false),
-    visible = _useState[0],
-    setVisible = _useState[1];
+  var _React$useState = React.useState(false),
+    visible = _React$useState[0],
+    setVisible = _React$useState[1];
   var triggerButton = function triggerButton(status) {
     return React.createElement(ActionButton, {
       onClick: function onClick() {
@@ -69,10 +71,6 @@ function ModalBase(_ref) {
     onClose();
     setVisible(false);
   };
-  useEffect(function () {
-    console.log('status', status);
-    setVisible(status);
-  }, [status]);
   var dialog = function dialog(visible) {
     var footerProps = (buttonConfigs === null || buttonConfigs === void 0 ? void 0 : buttonConfigs.footer) && ButtonsTemplate(buttonConfigs.footer) || footer;
     var HeaderProps = (buttonConfigs === null || buttonConfigs === void 0 ? void 0 : buttonConfigs.header) && ButtonsTemplate(buttonConfigs.header) || header;
@@ -163,10 +161,10 @@ function PromptModal(_ref5) {
   }, children);
   return React.createElement("div", null, modalBase);
 }
-function TabModalWrapper(_ref6) {
-  var _ref6$steps = _ref6.steps,
-    steps = _ref6$steps === void 0 ? [] : _ref6$steps,
-    children = _ref6.children;
+function TabModalWrapper(props) {
+  var _props$steps = props.steps,
+    steps = _props$steps === void 0 ? [] : _props$steps,
+    children = props.children;
   var tabList = React.createElement("div", null, React.createElement(TabList, null, steps.map(function (step, index) {
     var fieldDisabled = !!step.disabled;
     return React.createElement(Tab, {
@@ -189,21 +187,20 @@ function TabModalWrapper(_ref6) {
     stepData: steps
   });
 }
-function TabModal(_ref7) {
-  var _ref7$status = _ref7.status,
-    status = _ref7$status === void 0 ? false : _ref7$status,
-    _ref7$tabIndex = _ref7.tabIndex,
-    tabInd = _ref7$tabIndex === void 0 ? 0 : _ref7$tabIndex,
-    children = _ref7.children,
-    props = _objectWithoutPropertiesLoose(_ref7, _excluded3);
-  var _useState2 = useState(tabInd),
-    tabIndex = _useState2[0],
-    setTabIndex = _useState2[1];
+function TabModal(_ref6) {
+  var _ref6$status = _ref6.status,
+    status = _ref6$status === void 0 ? false : _ref6$status,
+    children = _ref6.children,
+    props = _objectWithoutPropertiesLoose(_ref6, _excluded3);
+  var defaultIndex = (props === null || props === void 0 ? void 0 : props.tabIndex) || 0;
+  var _React$useState2 = React.useState(defaultIndex),
+    tabIndex = _React$useState2[0],
+    setTabIndex = _React$useState2[1];
   return React.createElement("div", null, React.createElement(ModalBase, {
     status: status
-  }, React.createElement(TabModalWrapper, Object.assign({}, props), function (_ref8) {
-    var tabList = _ref8.tabList,
-      tabPanels = _ref8.tabPanels;
+  }, React.createElement(TabModalWrapper, Object.assign({}, props), function (_ref7) {
+    var tabList = _ref7.tabList,
+      tabPanels = _ref7.tabPanels;
     return React.createElement("div", {
       className: 'mt-5 flex'
     }, React.createElement(Tabs, {
@@ -219,6 +216,7 @@ function TabModal(_ref7) {
 }
 var index = {
   Modal: Modal,
+  ModalBase: ModalBase,
   TabModal: TabModal,
   PromptModal: PromptModal,
   ActionButton: ActionButton
