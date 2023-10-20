@@ -42,7 +42,7 @@
     "postcss-loader": "^7.0.0",
     "primeflex": "3.2.0",
     "primeicons": "^6.0.0",
-    "primereact": "^8.6.0",
+    "primereact": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-tabs": "^5.1.0",
